@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A runnable size-exchange workflow with tool calls, human approval and retry traces.">
+  <meta name="theme-color" content="#10141b">
+  <title>Exchange Ops</title>
+  <script type="module" crossorigin src="./assets/index-kM9G2pbt.js"></script>
+  <link rel="modulepreload" crossorigin href="./assets/rolldown-runtime-WkwZ5CU-.js">
+  <link rel="stylesheet" crossorigin href="./assets/index-acghbj5V.css">
+</head>
+<body>
+  <header class="top">
+    <div class="wrap bar">
+      <a class="brand" href="./"><span class="brand-mark" aria-hidden="true">⇄</span> Exchange Ops</a>
+      <a class="source-link" href="https://github.com/radusquinho/exchange-ops" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+    </div>
+  </header>
+  <main class="wrap">
+    <section class="hero">
+      <h1>Size exchange console</h1>
+      <p>Run a store request, review what the agent proposes, and see what actually lands in the database.</p>
+    </section>
+    <div class="board">
+      <div class="left">
+        <section class="surface input-surface">
+          <h2>Customer request</h2>
+          <label for="scenario">Scenario</label>
+          <select id="scenario"></select>
+          <p id="scenario-note" class="scenario-note"></p>
+          <form id="request-form">
+            <label for="request">Message</label>
+            <textarea id="request" rows="3" required maxlength="360"></textarea>
+            <div class="run-row">
+              <button class="primary" id="run" type="submit">Run workflow <span aria-hidden="true">→</span></button>
+              <span class="mode" id="mode-label">Rule-based planner</span>
+            </div>
+            <div id="model-settings" class="model-settings" hidden>
+              <label for="model">Local Ollama model <small>(optional)</small></label>
+              <input id="model" placeholder="qwen3:4b" maxlength="80" spellcheck="false">
+            </div>
+          </form>
+        </section>
+        <section class="surface decision-surface" aria-labelledby="decision-title">
+          <div class="section-head"><h2 id="decision-title">Human review</h2><span id="proposal-state" class="state">No proposal</span></div>
+          <p id="review-note" role="status">Run the workflow to prepare a proposal.</p>
+          <div class="review-actions" id="review-actions" hidden>
+            <button class="primary" id="approve" type="button">Approve exchange</button>
+            <button class="secondary" id="reject" type="button">Reject</button>
+          </div>
+        </section>
+      </div>
+      <section class="surface execution" aria-labelledby="execution-title">
+        <h2 id="execution-title">Execution trace</h2>
+        <dl class="metrics" aria-label="Database state">
+          <div><dt>Proposals</dt><dd id="kpi-proposals">0</dd></div>
+          <div><dt>Shipments</dt><dd id="kpi-shipments">0</dd></div>
+          <div><dt id="stock-label">Stock · L</dt><dd id="kpi-stock">–</dd></div>
+        </dl>
+        <p class="empty" id="trace-empty">Tool calls and approval attempts appear here.</p>
+        <ol class="trace" id="trace"></ol>
+      </section>
+    </div>
+    <footer>Fictional orders. Each scenario starts with a fresh PostgreSQL database in this browser.</footer>
+  </main>
+</body>
+</html>
