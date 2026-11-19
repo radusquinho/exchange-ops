@@ -47,6 +47,15 @@ Enter the installed model name in the local dashboard to use Ollama. Set `OLLAMA
 
 The suite checks 25 cases against PostgreSQL, including permission boundaries, missing details, policy limits, repeated preparation, concurrent approvals, a lost response and an inventory change. Checks assert the expected tool outcome and persisted state. Latency excludes database startup.
 
-The rule-based planner passed **25/25**. Both the concurrent approval and lost-response scenarios ended with one shipment and exactly one stock decrement. The score is for a small, deliberately constructed test suite.
+| Planner | Checks passed | p95 per check on the test PC |
+| --- | ---: | ---: |
+| Rules | 25/25 | 7 ms |
+| Qwen3 1.7B via Ollama 0.40.16 | 24/25 | 5,905 ms |
+
+Qwen3 passed 17 of the 18 cases that called the model. The other seven covered request validation and injected outcomes. Both planners passed the concurrent approval and lost-response cases, each ending with one shipment and one stock decrement.
+
+On the cancelled-order case, Qwen3 stopped after reading the order and skipped the required policy lookup. The trace shows the early stop, and PostgreSQL recorded no proposal or shipment. This comparison is based on a small, deliberately constructed test suite.
+
+To reproduce the model run, pull `qwen3:1.7b` and set `OLLAMA_MODEL=qwen3:1.7b` when calling `npm run evaluate -- --model`. In PowerShell, use `$env:OLLAMA_MODEL = 'qwen3:1.7b'` before running it.
 
 MIT licensed.
