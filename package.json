@@ -1,0 +1,14 @@
+{
+  "name": "exchange-ops",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=24" },
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "tsc --noEmit && vite build",
+    "evaluate": "node evaluation/run.ts"
+  },
+  "dependencies": { "@electric-sql/pglite": "0.5.16" },
+  "devDependencies": { "@types/node": "^24.0.0", "typescript": "^5.9.3", "vite": "8.3.8" }
+}

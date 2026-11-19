@@ -1,0 +1,14 @@
+{
+  "compilerOptions": {
+    "lib": ["ES2023", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "target": "ES2023",
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
+    "strict": true,
+    "types": ["node", "vite/client"],
+    "skipLibCheck": true,
+    "noEmit": true
+  },
+  "include": ["src", "evaluation", "vite.config.ts"]
+}
